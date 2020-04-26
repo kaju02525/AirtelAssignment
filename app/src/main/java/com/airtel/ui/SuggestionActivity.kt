@@ -9,32 +9,25 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.airtel.R
 import com.airtel.model.SuggestionAddress
 import com.airtel.mvvm.MainViewModel
-import com.airtel.utils.SharedPrefUtils
+import com.airtel.utils.showSnack
 import com.airtel.utils.toast
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.search_suggestion.*
-import org.koin.android.ext.android.inject
+import kotlinx.android.synthetic.main.activity_search_suggestion.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
+class SuggestionActivity : AppCompatActivity() {
 
-    // we get our viewModel from Koin
     private val searchViewModel: MainViewModel by viewModel()
-    private val preferences: SharedPrefUtils by inject()
-    private val gson: Gson by inject()
-
-    private var suggestionList = mutableListOf<SuggestionAddress>()
+    var suggestionList = mutableListOf<SuggestionAddress>()
     private lateinit var mSuggestionListAdapter:SuggestionListAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.search_suggestion)
+        setContentView(R.layout.activity_search_suggestion)
         setUpUI()
         setupViewModel()
     }
@@ -50,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         searchViewModel.getErrorMessage().observe(this, Observer {
             progressHideShow(false)
-            toast(it)
+            showSnack(it)
         })
     }
 
@@ -68,9 +61,10 @@ class MainActivity : AppCompatActivity() {
         search_suggest.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
                 if(s.length>1) {
-                    suggestion_img.visibility = View.VISIBLE
+                    setSuggestionQuery(s.toString())
+                    in_clear.visibility = View.VISIBLE
                     progressHideShow(true)
-                    searchViewModel.setSuggestions(s.toString())
+
                 }else{
                     closeSuggestion()
                 }
@@ -82,18 +76,15 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        search_suggest.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                return@OnEditorActionListener true
-            }
-            false
-        })
-
-        suggestion_img.setOnClickListener {
+        in_clear.setOnClickListener {
             closeSuggestion()
             search_suggest.text.clear()
         }
+    }
+
+    fun setSuggestionQuery(query:String){
+        searchViewModel.setSuggestions(query)
     }
 
     fun closeSuggestion(){
@@ -101,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             suggestionList.clear()
             mSuggestionListAdapter.notifyDataSetChanged()
         }
-        suggestion_img.visibility = View.GONE
+        in_clear.visibility = View.GONE
     }
 
     fun progressHideShow(flag:Boolean){
@@ -111,6 +102,5 @@ class MainActivity : AppCompatActivity() {
             progress_circular.visibility=View.GONE
         }
     }
-
 
 }

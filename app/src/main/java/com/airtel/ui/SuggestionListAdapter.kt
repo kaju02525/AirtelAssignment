@@ -7,12 +7,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.airtel.R
 import com.airtel.model.SuggestionAddress
-import kotlinx.android.synthetic.main.item_suggestion_list.view.*
+import kotlinx.android.synthetic.main.adapter_suggestion_list.view.*
 
 class SuggestionListAdapter (var list: List<SuggestionAddress>) : RecyclerView.Adapter<SuggestionListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_suggestion_list, parent, false)
+            .inflate(R.layout.adapter_suggestion_list, parent, false)
         return ViewHolder(v)
     }
 

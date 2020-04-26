@@ -5,8 +5,8 @@
     android:id="@+id/property_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    android:layout_marginEnd="24dp"
+    android:layout_marginStart="@dimen/margin_root_start_left"
+    android:layout_marginEnd="@dimen/margin_root_start_left"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp">
 
@@ -19,7 +19,7 @@
         android:layout_marginEnd="12dp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:padding="10dp"
+        android:padding="@dimen/image_view_padding"
         android:background="@drawable/ic_suggestion_background"
         android:src="@drawable/ic_city"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:textAlignment="viewStart"
         android:textStyle="bold"
         android:textColor="@android:color/holo_blue_dark"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size"
         app:layout_constraintLeft_toRightOf="@+id/suggestion_img"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,10 +45,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        tools:text="Vyapar Marg, Blockfdafqwfqwfqwf I, Seererererrerrerrerctor 12, Noida, Uttar Pradesh, 201301"
-        android:layout_marginStart="56dp"
-        android:textColor="#6a7985"
-        android:textSize="12sp"
+        tools:text="Vyapar Marg, Block I, Sector 12, Noida, Uttar Pradesh, 201301"
+        android:layout_marginStart="@dimen/margin_start_left"
+        android:textColor="@color/adapter_text_sub_titile"
+        android:textSize="@dimen/text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/suggestion_title"
         app:layout_constraintLeft_toRightOf="@+id/suggestion_img"
