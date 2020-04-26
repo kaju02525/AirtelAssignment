@@ -76,6 +76,13 @@ class SuggestionActivity : AppCompatActivity() {
             }
         })
 
+        search_suggest.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                return@OnEditorActionListener true
+            }
+            false
+        })
 
         in_clear.setOnClickListener {
             closeSuggestion()
